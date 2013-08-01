@@ -1,0 +1,15 @@
+Assets\Logo.png
+Assets\SmallLogo.png
+Assets\SplashScreen.png
+Assets\StoreLogo.png
+App.xaml
+Common\StandardStyles.xaml
+Component\AudioPlayer.xaml
+Component\NotePad.xaml
+Component\VideoPlayer.xaml
+Component\WebBrowser.xaml
+Control\ComponentContentControl.xaml
+Control\ComponentSelector.xaml
+MainPage.xaml
+View\Window\Window001.xaml
+MVVMLight.Nuget.Readme.txt

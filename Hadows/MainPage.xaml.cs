@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Hadows.Component;
+using Hadows.View.Window;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,23 +18,35 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Hadows
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
-    {
-        public MainPage()
-        {
-            this.InitializeComponent();
-        }
+	/// <summary>
+	/// An empty page that can be used on its own or navigated to within a Frame.
+	/// </summary>
+	public sealed partial class MainPage : Page
+	{
+		public MainPage()
+		{
+			this.InitializeComponent();
+			Windows001Button.Click += Windows001Button_Click;
+			VideoPlayerButton.Click += VideoPlayerButton_Click;
+		}
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.  The Parameter
-        /// property is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-        }
-    }
+		void VideoPlayerButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.Content = new VideoPlayer();
+		}
+
+		void Windows001Button_Click(object sender, RoutedEventArgs e)
+		{
+			this.Content = new Window001();
+		}
+
+		/// <summary>
+		/// Invoked when this page is about to be displayed in a Frame.
+		/// </summary>
+		/// <param name="e">Event data that describes how this page was reached.  The Parameter
+		/// property is typically used to configure the page.</param>
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+		}
+	}
 }

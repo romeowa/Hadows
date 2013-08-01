@@ -1,0 +1,21 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hadows.Control"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:Controls="using:WinRTXamlToolkit.Controls"
+	x:Class="Hadows.Control.ComponentSelector"
+    DataContext="{Binding Source={StaticResource Locator},Path=Component}">
+	<UserControl.Resources>
+		<DataTemplate x:Key="ComponentListViewItemTemplate">
+			<Grid>
+				<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding DisplayName}" VerticalAlignment="Top"/>
+			</Grid>
+		</DataTemplate>
+	</UserControl.Resources>
+    <StackPanel>
+        <ListView x:Name="ComponentListView" ItemsSource="{Binding Components}" ItemTemplate="{StaticResource ComponentListViewItemTemplate}"/>
+    </StackPanel>
+</UserControl>
+
