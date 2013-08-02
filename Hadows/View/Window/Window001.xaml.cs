@@ -36,31 +36,14 @@ namespace Hadows.View.Window
 		{
 			_column = e.Column;
 			_row = e.Row;
-			ComponentSelector selector = new ComponentSelector();
-			Grid popupGrid = new Grid()
-			{
-				Background = new SolidColorBrush(Colors.Black),
-				Width = this.LayoutRoot.ActualWidth,
-				Height = this.LayoutRoot.ActualHeight
-			};
-			selector.ItemSelected += selector_ItemSelected;
-			popupGrid.Children.Add(selector);
-
-			_popup = new Popup()
-			{
-				Child = popupGrid,
-				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Top,
-				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Left
-			};
-			_popup.IsOpen = true;
+			
 		}
-		Popup _popup;
+		
 		int _column;
 		int _row;
 
 		void selector_ItemSelected(object sender, Component.IComponent e)
 		{
-			_popup.IsOpen = false;
 			FrameworkElement element = e.GetInstance();
 			if (element == null)
 			{

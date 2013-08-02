@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -78,10 +80,39 @@ namespace Hadows.Control
 			ClearButton.Click += ClearButton_Click;
 			AddButton.Click += AddButton_Click;
 		}
-
+		Popup _popup;
 		void AddButton_Click(object sender, RoutedEventArgs e)
 		{
+			ComponentSelector selector = new ComponentSelector();
+			Grid popupGrid = new Grid()
+			{
+				Background = new SolidColorBrush(Colors.Black),
+				Width = Window.Current.Bounds.Width,
+				Height = Window.Current.Bounds.Height
+			};
+			selector.ItemSelected += selector_ItemSelected;
+			popupGrid.Children.Add(selector);
 
+			_popup = new Popup()
+			{
+				Child = popupGrid,
+				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Top,
+				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Left
+			};
+			_popup.IsOpen = true;
+		}
+
+		void selector_ItemSelected(object sender, Component.IComponent e)
+		{
+			FrameworkElement element = e.GetInstance();
+			if (element == null)
+			{
+				Debug.Assert(false, "GetInstance()를 통해서 아이템을 만들어 내지 못했습니다.");
+				return;
+			}
+			element.HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch;
+			element.VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch;
+			this.ContentPanel.Children.Add(element);
 		}
 
 		void ClearButton_Click(object sender, RoutedEventArgs e)
