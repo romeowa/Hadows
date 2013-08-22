@@ -9,63 +9,63 @@
 	xmlns:Window="using:Hadows.View.Window"
 	mc:Ignorable="d">
 
-    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-    	<VisualStateManager.VisualStateGroups>
-    		<VisualStateGroup x:Name="VisualStateGroup">
-    			<VisualState x:Name="FullSizeState">
-    				<Storyboard>
-    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="FullSziePanel">
-    						<DiscreteObjectKeyFrame KeyTime="0">
-    							<DiscreteObjectKeyFrame.Value>
-    								<Visibility>Visible</Visibility>
-    							</DiscreteObjectKeyFrame.Value>
-    						</DiscreteObjectKeyFrame>
-    					</ObjectAnimationUsingKeyFrames>
-    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scrollViewer">
-    						<DiscreteObjectKeyFrame KeyTime="0">
-    							<DiscreteObjectKeyFrame.Value>
-    								<Visibility>Collapsed</Visibility>
-    							</DiscreteObjectKeyFrame.Value>
-    						</DiscreteObjectKeyFrame>
-    					</ObjectAnimationUsingKeyFrames>
-    				</Storyboard>
-    			</VisualState>
-    			<VisualState x:Name="SnappedSizeState">
-    				<Storyboard>
-    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="FullSziePanel">
-    						<DiscreteObjectKeyFrame KeyTime="0">
-    							<DiscreteObjectKeyFrame.Value>
-    								<Visibility>Collapsed</Visibility>
-    							</DiscreteObjectKeyFrame.Value>
-    						</DiscreteObjectKeyFrame>
-    					</ObjectAnimationUsingKeyFrames>
-    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scrollViewer">
-    						<DiscreteObjectKeyFrame KeyTime="0">
-    							<DiscreteObjectKeyFrame.Value>
-    								<Visibility>Visible</Visibility>
-    							</DiscreteObjectKeyFrame.Value>
-    						</DiscreteObjectKeyFrame>
-    					</ObjectAnimationUsingKeyFrames>
-    				</Storyboard>
-    			</VisualState>
-    		</VisualStateGroup>
-    	</VisualStateManager.VisualStateGroups>
-        <Grid x:Name="FullSziePanel">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1087*"/>
-                <ColumnDefinition Width="279*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="499*"/>
-                <RowDefinition Height="269*"/>
-            </Grid.RowDefinitions>
-            <Control:ComponentContentControl/>
-            <Control:ComponentContentControl Grid.Column="1"/>
-            <Control:ComponentContentControl Grid.Row="1"/>
-            <Control:ComponentContentControl Grid.Column="1" Grid.Row="1"/>
-        </Grid>
-        <ScrollViewer x:Name="scrollViewer" Visibility="Collapsed">
-        	<StackPanel x:Name="SnappedSizePanel"/>
-        </ScrollViewer>
-    </Grid>
+	<Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup x:Name="VisualStateGroup">
+				<VisualState x:Name="FullSizeState">
+					<Storyboard>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="FullSziePanel">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<Visibility>Visible</Visibility>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scrollViewer">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<Visibility>Collapsed</Visibility>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
+				<VisualState x:Name="SnappedSizeState">
+					<Storyboard>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="FullSziePanel">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<Visibility>Collapsed</Visibility>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scrollViewer">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<Visibility>Visible</Visibility>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+		<Grid x:Name="FullSziePanel">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1087*"/>
+				<ColumnDefinition Width="279*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="499*"/>
+				<RowDefinition Height="269*"/>
+			</Grid.RowDefinitions>
+			<Control:ComponentContentControl/>
+			<Control:ComponentContentControl Grid.Column="1"/>
+			<Control:ComponentContentControl Grid.Row="1"/>
+			<Control:ComponentContentControl Grid.Column="1" Grid.Row="1"/>
+		</Grid>
+		<ScrollViewer x:Name="scrollViewer" Visibility="Collapsed">
+			<StackPanel x:Name="SnappedSizePanel"/>
+		</ScrollViewer>
+	</Grid>
 </Window:WindowPage>
