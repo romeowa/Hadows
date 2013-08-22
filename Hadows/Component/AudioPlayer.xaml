@@ -1,15 +1,37 @@
 ﻿<UserControl
-    x:Class="Hadows.Component.AudioPlayer"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Hadows.Control"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hadows.Control"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:Controls="using:WinRTXamlToolkit.Controls"
+	x:Class="Hadows.Component.AudioPlayer"
+	mc:Ignorable="d"
+	d:DesignHeight="300"
+	d:DesignWidth="400">
 
-    <Grid Background="AliceBlue">
-        <TextBlock Text="Audio Player"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Slider x:Name="PlayProgressBar" VerticalAlignment="Top" Grid.Row="0"/>
+        <Slider x:Name="VolumnProgressBar" VerticalAlignment="Top" Grid.Row="1"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="PrevButton" Content="&lt;" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <ToggleButton x:Name="PlayButton" Content="Play" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
+            <Button x:Name="ForwardButton" Content="&gt;" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Grid>
+        <Button x:Name="OpenButton" Content="Open" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3"/>
+        <ListBox x:Name="SongListBox" Grid.Row="4" DisplayMemberPath="MusicProperties.Title"/>
+        <MediaElement x:Name="musicMediaElement" HorizontalAlignment="Left" Height="0" Grid.RowSpan="2" VerticalAlignment="Top" Width="0" AutoPlay="True"/>
     </Grid>
 </UserControl>

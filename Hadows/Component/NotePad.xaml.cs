@@ -23,10 +23,12 @@ namespace Hadows.Component
 			this.InitializeComponent();
 			ThumbnailName = "thumbnail notepad";
 			DisplayName = "displayname notepad";
+			SnappedStateHeight = 700;
 		}
 
 		public string ThumbnailName { get; set; }
 		public string DisplayName { get; set; }
+		public double SnappedStateHeight { get; set; }
 
 		public FrameworkElement GetInstance()
 		{

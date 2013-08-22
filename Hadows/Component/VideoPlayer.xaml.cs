@@ -30,6 +30,7 @@ namespace Hadows.Component
 
 			ThumbnailName = "bb.jpg";
 			DisplayName = "VideoPlayer";
+			SnappedStateHeight = 500;
 		}
 
 		private void LinkEvents()
@@ -38,7 +39,6 @@ namespace Hadows.Component
 			OpenButton.Click += OpenButton_Click;
 		}
 
-		string _selectedFilePath;
 
 		async void OpenButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -49,13 +49,12 @@ namespace Hadows.Component
 			fileOpenPicker.SuggestedStartLocation = PickerLocationId.VideosLibrary;
 
 			var pickedFile = await fileOpenPicker.PickSingleFileAsync();
-			var stream = await pickedFile.OpenAsync(FileAccessMode.Read);
-
 			if (pickedFile == null)
 			{
-				Debug.Assert(false, "파일이 선택되지 않았습니다.");
 				return;
 			}
+
+			var stream = await pickedFile.OpenAsync(FileAccessMode.Read);
 			mediaElement.SetSource(stream, pickedFile.ContentType);
 		}
 
@@ -70,7 +69,7 @@ namespace Hadows.Component
 
 		public string ThumbnailName { get; set; }
 		public string DisplayName { get; set; }
-
+		public double SnappedStateHeight { get; set; }
 
 		public FrameworkElement GetInstance()
 		{

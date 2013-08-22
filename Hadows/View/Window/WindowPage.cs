@@ -4,89 +4,74 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hadows.Component;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Hadows.View.Window
 {
-	internal class WindowPage : Page
+	public class WindowPage : Page
 	{
-		internal class CellInfo
+		StackPanel _snappedSizePanel;
+		Grid _fullSizePanel;
+		bool _isFullSizeMode;
+
+		public WindowPage()
 		{
-			public int Row { get; set; }
-			public int Column { get; set; }
+			LinkEvents();
 		}
 
-		#region CellSelected
-		public event EventHandler<CellInfo> CellSelected;
-		/// <summary>
-		/// 
-		/// </summary>
-		private void InvokeCellSelected(CellInfo info)
-		{
-			if (CellSelected == null)
-				return;
-
-			CellSelected(this, info);
-		}
-		#endregion CellSelected
-
-
-
-
-		internal WindowPage()
+		private void LinkEvents()
 		{
 			this.Loaded += WindowPage_Loaded;
-
+			this.SizeChanged += WindowPage_SizeChanged;
 		}
 
+		void WindowPage_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+		{
+			if (_isLoadedItem == false)
+				return;
+
+
+			if (this.ActualWidth < 500 &&
+				this._isFullSizeMode == true)
+			{
+				for (int i = _fullSizePanel.Children.Count - 1; i >= 0; i--)
+				{
+					dynamic temp = _fullSizePanel.Children[i];
+					temp.Height = (temp.Content as IComponent).SnappedStateHeight;
+					_fullSizePanel.Children.RemoveAt(i);
+					_snappedSizePanel.Children.Insert(0, temp);
+				}
+				VisualStateManager.GoToState(this, "SnappedSizeState", false);
+				this._isFullSizeMode = false;
+			}
+			else if (this.ActualWidth > 500 &&
+				this._isFullSizeMode == false)
+			{
+				for (int i = _snappedSizePanel.Children.Count - 1; i >= 0; i--)
+				{
+					dynamic temp = _snappedSizePanel.Children[i];
+					temp.Height = double.NaN;
+					_snappedSizePanel.Children.RemoveAt(i);
+					_fullSizePanel.Children.Add(temp);
+
+				}
+				VisualStateManager.GoToState(this, "FullSizeState", false);
+				this._isFullSizeMode = true;
+			}
+
+		}
+		bool _isLoadedItem = false;
 		void WindowPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
 		{
-			InitWindow();
+			_fullSizePanel = (this.Content as Panel).Children[0] as Grid;
+			_snappedSizePanel = ((this.Content as Panel).Children[1] as ScrollViewer).Content as StackPanel;
+			_isFullSizeMode = true;
+			Debug.Assert(_snappedSizePanel != null);
+			Debug.Assert(_fullSizePanel != null);
+			_isLoadedItem = true;
 		}
 
-		private void InitWindow()
-		{
-			Grid layoutRootGrid = this.Content as Grid;
-			if (layoutRootGrid == null)
-			{
-				Debug.Assert(false, "최상위 객체는 Grid 이어야합니다.");
-				return;
-			}
-
-			int rows = layoutRootGrid.RowDefinitions.Count;
-			int columns = layoutRootGrid.ColumnDefinitions.Count;
-
-
-			for (int i = 0; i < rows; i++)
-			{
-				for (int j = 0; j < columns; j++)
-				{
-					Button button = new Button();
-					button.SetValue(Grid.RowProperty, i);
-					button.SetValue(Grid.ColumnProperty, j);
-					button.Content = string.Format("row = {0}, column = {1}", i, j);
-					button.VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Center;
-					button.HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Center;
-					layoutRootGrid.Children.Add(button);
-					button.Click += button_Click;
-				}
-			}
-		}
-
-		void button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-		{
-			Button selectedButton = sender as Button;
-			if (selectedButton == null)
-			{
-				Debug.Assert(false, "selected button 이 null 입니다.");
-				return;
-			}
-
-			InvokeCellSelected(new CellInfo()
-			{
-				Column = (int)selectedButton.GetValue(Grid.ColumnProperty),
-				Row = (int)selectedButton.GetValue(Grid.RowProperty)
-			});
-		}
 	}
 }

@@ -113,14 +113,12 @@
     <Compile Include="Component\WebBrowser.xaml.cs">
       <DependentUpon>WebBrowser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\ComponentContentControl.xaml.cs">
-      <DependentUpon>ComponentContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Control\ComponentSelector.xaml.cs">
-      <DependentUpon>ComponentSelector.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Component\VideoPlayer.xaml.cs">
       <DependentUpon>VideoPlayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ComponentContentControl.cs" />
+    <Compile Include="Control\ComponentSelector.xaml.cs">
+      <DependentUpon>ComponentSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -129,8 +127,8 @@
     <Compile Include="ViewModel\ComponentViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\Window\Window001.xaml.cs">
-      <DependentUpon>Window001.xaml</DependentUpon>
+    <Compile Include="View\Window\Window002.xaml.cs">
+      <DependentUpon>Window002.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Window\WindowPage.cs" />
   </ItemGroup>
@@ -169,25 +167,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\ComponentContentControl.xaml">
+    <Page Include="Component\VideoPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Control\ComponentSelector.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Component\VideoPlayer.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Window\Window001.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Themes\generic.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Window\Window002.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,8 @@
 
     <StackPanel>
         <TextBlock Text="{Binding Test}" Foreground="Red"/>
-        <Button x:Name="Windows001Button" Content="Windows001"/>
+        <Button x:Name="Windows002Button" Content="Windows002"/>
         <Button x:Name="VideoPlayerButton" Content="Video Player"/>
+        <Button x:Name="AudioPlayerButton" Content="Audio Player"/>
     </StackPanel>
 </Page>

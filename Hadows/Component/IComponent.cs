@@ -12,5 +12,6 @@ namespace Hadows.Component
 		string ThumbnailName { get; set; }
 		string DisplayName { get; set; }
 		FrameworkElement GetInstance();
+		double SnappedStateHeight { get; set; }
 	}
 }

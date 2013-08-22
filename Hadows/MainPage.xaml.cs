@@ -26,8 +26,24 @@ namespace Hadows
 		public MainPage()
 		{
 			this.InitializeComponent();
-			Windows001Button.Click += Windows001Button_Click;
+			LinkEvents();
+		}
+
+		private void LinkEvents()
+		{
+			Windows002Button.Click += Windows002Button_Click;
 			VideoPlayerButton.Click += VideoPlayerButton_Click;
+			AudioPlayerButton.Click += AudioPlayerButton_Click;
+		}
+
+		void AudioPlayerButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.Content = new AudioPlayer();
+		}
+
+		void Windows002Button_Click(object sender, RoutedEventArgs e)
+		{
+			this.Content = new Window002();
 		}
 
 		void VideoPlayerButton_Click(object sender, RoutedEventArgs e)
@@ -35,10 +51,6 @@ namespace Hadows
 			this.Content = new VideoPlayer();
 		}
 
-		void Windows001Button_Click(object sender, RoutedEventArgs e)
-		{
-			this.Content = new Window001();
-		}
 
 		/// <summary>
 		/// Invoked when this page is about to be displayed in a Frame.
