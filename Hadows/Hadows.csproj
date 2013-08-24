@@ -117,9 +117,7 @@
       <DependentUpon>VideoPlayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control\ComponentContentControl.cs" />
-    <Compile Include="Control\ComponentSelector.xaml.cs">
-      <DependentUpon>ComponentSelector.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Control\ComponentSelector.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -170,10 +168,6 @@
     <Page Include="Component\VideoPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Control\ComponentSelector.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>

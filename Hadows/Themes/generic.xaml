@@ -3,6 +3,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:LocalControl="using:Hadows.Control"
 >
+    <DataTemplate x:Key="ComponentListViewItemTemplate">
+        <Grid>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding DisplayName}" VerticalAlignment="Top"/>
+        </Grid>
+    </DataTemplate>
+    <Style TargetType="LocalControl:ComponentSelector">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <ListView x:Name="ComponentListView" 
+                                  ItemsSource="{Binding Components}" 
+                                  ItemTemplate="{StaticResource ComponentListViewItemTemplate}"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="LocalControl:ComponentContentControl">
         <Setter Property="Template">
             <Setter.Value>
@@ -51,6 +70,7 @@
                         <ContentPresenter x:Name="MyContentPresenter"/>
                         <Button x:Name="AddButton" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         <Button x:Name="ClearButton" Content="x" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Global User Interface" Visibility="Collapsed"/>
+                        <LocalControl:ComponentSelector HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
