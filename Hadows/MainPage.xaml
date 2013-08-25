@@ -13,5 +13,6 @@
         <Button x:Name="Windows002Button" Content="Windows002"/>
         <Button x:Name="VideoPlayerButton" Content="Video Player"/>
         <Button x:Name="AudioPlayerButton" Content="Audio Player"/>
+        <Button x:Name="WebButton" Content="Web"/>
     </StackPanel>
 </Page>

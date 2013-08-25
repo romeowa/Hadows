@@ -34,6 +34,12 @@ namespace Hadows
 			Windows002Button.Click += Windows002Button_Click;
 			VideoPlayerButton.Click += VideoPlayerButton_Click;
 			AudioPlayerButton.Click += AudioPlayerButton_Click;
+			WebButton.Click += WebButton_Click;
+		}
+
+		void WebButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.Content = new WebBrowser();
 		}
 
 		void AudioPlayerButton_Click(object sender, RoutedEventArgs e)

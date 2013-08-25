@@ -29,7 +29,7 @@ namespace Hadows.Component
 	}
 
 
-	public sealed partial class AudioPlayer : UserControl, IComponent
+	public sealed partial class AudioPlayer : UserControl, IComponent, IDisposable
 	{
 		//-------------------------- ▶ Properties
 		public ObservableCollection<Song> Songs { get; set; }
@@ -95,6 +95,7 @@ namespace Hadows.Component
 			SongListBox.SelectionChanged += SongListBox_SelectionChanged;
 
 			musicMediaElement.CurrentStateChanged += musicMediaElement_CurrentStateChanged;
+
 		}
 
 		async void _PlayMusicAsync()
@@ -241,6 +242,14 @@ namespace Hadows.Component
 			return new AudioPlayer();
 		}
 		#endregion IComponent
+
+		public void Dispose()
+		{
+			if (_updateProgressBarTimer == null)
+				return;
+
+			_updateProgressBarTimer.Stop();
+		}
 	}
 }
 

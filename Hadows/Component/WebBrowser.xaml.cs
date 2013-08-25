@@ -24,6 +24,24 @@ namespace Hadows.Component
 			ThumbnailName = "thumbnail webbrowser";
 			DisplayName = "displayname webbrowser";
 			SnappedStateHeight = 800;
+
+			LinkEvents();
+		}
+
+		private void LinkEvents()
+		{
+			GoButton.Click += GoButton_Click;
+			webView.LoadCompleted += webView_LoadCompleted;
+		}
+
+		void webView_LoadCompleted(object sender, NavigationEventArgs e)
+		{
+			
+		}
+
+		void GoButton_Click(object sender, RoutedEventArgs e)
+		{
+			webView.Source = new Uri(UrlTextBox.Text);
 		}
 
 		public string ThumbnailName { get; set; }
