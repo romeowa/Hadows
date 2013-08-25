@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hadows.Component;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -14,11 +15,12 @@ using Windows.UI.Xaml.Media;
 
 namespace Hadows.Control
 {
-	[TemplatePart(Name = "MyContentPresenter", Type = typeof(ContentPresenter))]
 	[TemplatePart(Name = "AddButton", Type = typeof(Button))]
 	[TemplatePart(Name = "ClearButton", Type = typeof(Button))]
+	[TemplatePart(Name = "ComponentSelector", Type = typeof(ComponentSelector))]
 	[TemplatePart(Name = "EmptyState", Type = typeof(VisualState))]
 	[TemplatePart(Name = "ContentState", Type = typeof(VisualState))]
+	[TemplatePart(Name = "MyContentPresenter", Type = typeof(ContentPresenter))]
 	public class ComponentContentControl : ContentControl, INotifyPropertyChanged
 	{
 		internal const string MyContentPresenterName = "MyContentPresenter";
@@ -33,46 +35,22 @@ namespace Hadows.Control
 		internal const string EmptyStateName = "EmptyState";
 		internal VisualState EmptyState;
 
+
 		internal const string ContentStateName = "ContentState";
 		internal VisualState ContentState;
 
-		Popup _popup;
+		internal const string ContentSelectingStateName = "ContentSelectingState";
+		internal VisualState ContentSelectingState;
 
-		#region ContentObject
-		private object _contentObject;
-		/// <summary>
-		/// 
-		/// </summary>
-		public object ContentObject
-		{
-			get
-			{
-				return _contentObject;
-			}
-			set
-			{
-				_contentObject = value;
-				if (_contentObject == null)
-				{
-					VisualStateManager.GoToState(this, EmptyState.Name, false);
-				}
-				else
-				{
-					VisualStateManager.GoToState(this, ContentState.Name, false);
-				}
-			}
-		}
-		#endregion ContentObject
+		internal const string ComponentSelectorName = "ComponentSelector";
+		internal ComponentSelector ComponentSelector;
 
 
 		public ComponentContentControl()
 		{
 			this.DefaultStyleKey = typeof(ComponentContentControl);
 			this.DataContext = this;
-
 		}
-
-
 
 		protected override void OnApplyTemplate()
 		{
@@ -81,50 +59,51 @@ namespace Hadows.Control
 			LinkEvents();
 		}
 
+		public double GetComponentSnappedHeight()
+		{
+			if (MyContentPresenter == null ||
+				MyContentPresenter.Content == null)
+			{
+				return double.NaN;
+			}
+
+			IComponent selectedItem = MyContentPresenter.Content as IComponent;
+			Debug.Assert(selectedItem != null);
+
+
+			return selectedItem.SnappedStateHeight;
+		}
+
 		private void LinkEvents()
 		{
 			AddButton.Click += AddButton_Click;
 			ClearButton.Click += ClearButton_Click;
+			ComponentSelector.ItemSelected += selector_ItemSelected;
 		}
 
 		void AddButton_Click(object sender, RoutedEventArgs e)
 		{
-			ComponentSelector selector = new ComponentSelector();
-			Grid popupGrid = new Grid()
-			{
-				Background = new SolidColorBrush(Colors.Black),
-				Width = Window.Current.Bounds.Width,
-				Height = Window.Current.Bounds.Height
-			};
-			selector.ItemSelected += selector_ItemSelected;
-			popupGrid.Children.Add(selector);
-
-			_popup = new Popup()
-			{
-				Child = popupGrid,
-				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Top,
-				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Left
-			};
-			_popup.IsOpen = true;
+			VisualStateManager.GoToState(this, ContentSelectingState.Name, false);
 		}
 
 		void selector_ItemSelected(object sender, Component.IComponent e)
 		{
-			_popup.IsOpen = false;
-
 			FrameworkElement element = e.GetInstance();
+
 			if (element == null)
 			{
 				Debug.Assert(false, "GetInstance()를 통해서 아이템을 만들어 내지 못했습니다.");
 				return;
 			}
 
-			this.Content = element;
+			MyContentPresenter.Content = element;
+			VisualStateManager.GoToState(this, ContentState.Name, false);
 		}
 
 		void ClearButton_Click(object sender, RoutedEventArgs e)
 		{
-			this.Content = null;
+			MyContentPresenter.Content = null;
+			VisualStateManager.GoToState(this, EmptyState.Name, false);
 		}
 
 		private void InitializeComponents()
@@ -132,24 +111,24 @@ namespace Hadows.Control
 			MyContentPresenter = (ContentPresenter)GetTemplateChild(MyContentPresenterName);
 			AddButton = (Button)GetTemplateChild(AddButtonName);
 			ClearButton = (Button)GetTemplateChild(ClearButtonName);
+			ComponentSelector = (ComponentSelector)GetTemplateChild(ComponentSelectorName);
+
 			EmptyState = (VisualState)GetTemplateChild(EmptyStateName);
 			ContentState = (VisualState)GetTemplateChild(ContentStateName);
+			ContentSelectingState = (VisualState)GetTemplateChild(ContentSelectingStateName);
+
+
+
 
 			Debug.Assert(MyContentPresenter != null);
 			Debug.Assert(AddButton != null);
 			Debug.Assert(ClearButton != null);
+			Debug.Assert(ComponentSelector != null);
+
+
 			Debug.Assert(EmptyState != null);
 			Debug.Assert(ContentState != null);
-
-
-			Binding contentBinding = new Binding()
-			{
-				Source = this,
-				Mode = BindingMode.TwoWay,
-				Path = new PropertyPath("ContentObject")
-			};
-
-			MyContentPresenter.SetBinding(ContentPresenter.ContentProperty, contentBinding);
+			Debug.Assert(ContentSelectingState != null);
 		}
 
 		#region ▶ INotifyPropertyChanged Members

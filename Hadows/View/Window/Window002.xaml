@@ -59,10 +59,10 @@
 				<RowDefinition Height="499*"/>
 				<RowDefinition Height="269*"/>
 			</Grid.RowDefinitions>
-			<Control:ComponentContentControl/>
-			<Control:ComponentContentControl Grid.Column="1"/>
-			<Control:ComponentContentControl Grid.Row="1"/>
-			<Control:ComponentContentControl Grid.Column="1" Grid.Row="1"/>
+			<Control:ComponentContentControl Background="#FF191919"/>
+			<Control:ComponentContentControl Grid.Column="1" Background="#FF191919"/>
+			<Control:ComponentContentControl Grid.Row="1" Background="#FF191919"/>
+			<Control:ComponentContentControl Grid.Column="1" Grid.Row="1" Background="#FF191919"/>
 		</Grid>
 		<ScrollViewer x:Name="scrollViewer" Visibility="Collapsed">
 			<StackPanel x:Name="SnappedSizePanel"/>

@@ -12,7 +12,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <StackPanel>
+                    <StackPanel Background="{TemplateBinding Background}">
                         <ListView x:Name="ComponentListView" 
                                   ItemsSource="{Binding Components}" 
                                   ItemTemplate="{StaticResource ComponentListViewItemTemplate}"/>
@@ -26,7 +26,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Grid>
+                    <Grid Background="{TemplateBinding Background}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="VisualStateGroup">
                                 <VisualState x:Name="EmptyState">
@@ -39,6 +39,20 @@
                                             </DiscreteObjectKeyFrame>
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ClearButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ComponentSelector">
+                                        	<DiscreteObjectKeyFrame KeyTime="0">
+                                        		<DiscreteObjectKeyFrame.Value>
+                                        			<Visibility>Collapsed</Visibility>
+                                        		</DiscreteObjectKeyFrame.Value>
+                                        	</DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MyContentPresenter">
                                         	<DiscreteObjectKeyFrame KeyTime="0">
                                         		<DiscreteObjectKeyFrame.Value>
                                         			<Visibility>Collapsed</Visibility>
@@ -57,20 +71,66 @@
                                             </DiscreteObjectKeyFrame>
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AddButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ComponentSelector">
                                         	<DiscreteObjectKeyFrame KeyTime="0">
                                         		<DiscreteObjectKeyFrame.Value>
                                         			<Visibility>Collapsed</Visibility>
                                         		</DiscreteObjectKeyFrame.Value>
                                         	</DiscreteObjectKeyFrame>
                                         </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MyContentPresenter">
+                                        	<DiscreteObjectKeyFrame KeyTime="0">
+                                        		<DiscreteObjectKeyFrame.Value>
+                                        			<Visibility>Visible</Visibility>
+                                        		</DiscreteObjectKeyFrame.Value>
+                                        	</DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ContentSelectingState">
+                                	<Storyboard>
+                                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MyContentPresenter">
+                                			<DiscreteObjectKeyFrame KeyTime="0">
+                                				<DiscreteObjectKeyFrame.Value>
+                                					<Visibility>Collapsed</Visibility>
+                                				</DiscreteObjectKeyFrame.Value>
+                                			</DiscreteObjectKeyFrame>
+                                		</ObjectAnimationUsingKeyFrames>
+                                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AddButton">
+                                			<DiscreteObjectKeyFrame KeyTime="0">
+                                				<DiscreteObjectKeyFrame.Value>
+                                					<Visibility>Collapsed</Visibility>
+                                				</DiscreteObjectKeyFrame.Value>
+                                			</DiscreteObjectKeyFrame>
+                                		</ObjectAnimationUsingKeyFrames>
+                                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ClearButton">
+                                			<DiscreteObjectKeyFrame KeyTime="0">
+                                				<DiscreteObjectKeyFrame.Value>
+                                					<Visibility>Collapsed</Visibility>
+                                				</DiscreteObjectKeyFrame.Value>
+                                			</DiscreteObjectKeyFrame>
+                                		</ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ComponentSelector">
+                                			<DiscreteObjectKeyFrame KeyTime="0">
+                                				<DiscreteObjectKeyFrame.Value>
+                                					<Visibility>Visible</Visibility>
+                                				</DiscreteObjectKeyFrame.Value>
+                                			</DiscreteObjectKeyFrame>
+                                		</ObjectAnimationUsingKeyFrames>
+                                	</Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <ContentPresenter x:Name="MyContentPresenter"/>
+                        <ContentPresenter x:Name="MyContentPresenter" Visibility="Collapsed"/>
                         <Button x:Name="AddButton" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         <Button x:Name="ClearButton" Content="x" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Global User Interface" Visibility="Collapsed"/>
-                        <LocalControl:ComponentSelector HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <LocalControl:ComponentSelector x:Name="ComponentSelector" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Red" Visibility="Collapsed"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

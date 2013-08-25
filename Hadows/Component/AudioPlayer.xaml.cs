@@ -80,7 +80,7 @@ namespace Hadows.Component
 		{
 			ThumbnailName = "aa.jpg";
 			DisplayName = "AudioPlayer";
-			SnappedStateHeight = 100;
+			SnappedStateHeight = 700;
 		}
 
 		void LinkEvents()

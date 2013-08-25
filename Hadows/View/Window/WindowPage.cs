@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Hadows.Component;
+using Hadows.Control;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -53,9 +54,21 @@ namespace Hadows.View.Window
 			{
 				for (int i = _fullSizePanel.Children.Count - 1; i >= 0; i--)
 				{
-					dynamic temp = _fullSizePanel.Children[i];
-					temp.Height = (temp.Content as IComponent).SnappedStateHeight;
+					ComponentContentControl temp = _fullSizePanel.Children[i] as ComponentContentControl;
 					_fullSizePanel.Children.RemoveAt(i);
+
+					if (temp == null)
+					{
+						Debug.Assert(false);
+						continue;
+					}
+
+					temp.Height = temp.GetComponentSnappedHeight();
+					if (double.IsNaN(temp.Height) == true)
+					{
+						temp.Height = 0;
+					}
+
 					_snappedSizePanel.Children.Insert(0, temp);
 				}
 				VisualStateManager.GoToState(this, "SnappedSizeState", false);

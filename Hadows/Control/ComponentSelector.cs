@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Hadows.Component;
-using Hadows.ViewModel;
-using Microsoft.Practices.ServiceLocation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -14,11 +8,20 @@ using Windows.UI.Xaml.Data;
 namespace Hadows.Control
 {
 	[TemplatePart(Name = "ComponentListView", Type = typeof(ListView))]
+	[TemplatePart(Name = "EmptyState", Type = typeof(VisualState))]
+	[TemplatePart(Name = "ContentState", Type = typeof(VisualState))]
+	[TemplatePart(Name = "ContentSelectingState", Type = typeof(VisualState))]
 	public class ComponentSelector : Windows.UI.Xaml.Controls.Control
 	{
 		//-------------------------- ▶ Members
 		internal const string ComponentListViewName = "ComponentListView";
 		internal ListView ComponentListView;
+
+
+
+
+
+
 
 
 
@@ -55,12 +58,6 @@ namespace Hadows.Control
 		//-------------------------- ▶ Methods
 		void LinkEvents()
 		{
-			if (ComponentListView == null)
-			{
-				Debug.Assert(false, "ComponentListView가 null입니다.");
-				return;
-			}
-
 			ComponentListView.SelectionChanged += ComponentListView_SelectionChanged;
 		}
 
@@ -91,6 +88,9 @@ namespace Hadows.Control
 		void InitilaizeComponents()
 		{
 			ComponentListView = (ListView)GetTemplateChild(ComponentListViewName);
+			Debug.Assert(ComponentListView != null);
+
+			
 		}
 	}
 }
