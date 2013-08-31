@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
-using Hadows.Component;
-using Hadows.View.Window;
+using Facebook;
+using Facebook.Client;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,14 +17,14 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Hadows
+namespace Hadows.Component
 {
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class MainPage : Page
+	public sealed partial class FacebookView : Page
 	{
-		public MainPage()
+		public FacebookView()
 		{
 			this.InitializeComponent();
 			LinkEvents();
@@ -31,38 +32,28 @@ namespace Hadows
 
 		private void LinkEvents()
 		{
-			Windows002Button.Click += Windows002Button_Click;
-			VideoPlayerButton.Click += VideoPlayerButton_Click;
-			AudioPlayerButton.Click += AudioPlayerButton_Click;
-			WebButton.Click += WebButton_Click;
-			FacebookButton.Click += FacebookButton_Click;
+			LoginButton.Click += LoginButton_Click;
 		}
 
-		void FacebookButton_Click(object sender, RoutedEventArgs e)
+		async void LoginButton_Click(object sender, RoutedEventArgs e)
 		{
-			this.Content = new FacebookView();
-		}
+			string accessToken = string.Empty;
+			string facebookId = string.Empty;
+			FacebookSessionClient client = new FacebookSessionClient("158376391035007");
+			FacebookSession session = await client.LoginAsync("user_about_me,read_stream");
+			accessToken = session.AccessToken;
+			facebookId = session.FacebookId;
 
-		void WebButton_Click(object sender, RoutedEventArgs e)
-		{
-			this.Content = new WebBrowser();
-		}
+			FacebookClient facebookClient = new FacebookClient(accessToken);
 
-		void AudioPlayerButton_Click(object sender, RoutedEventArgs e)
-		{
-			this.Content = new AudioPlayer();
-		}
+			dynamic parameter = new ExpandoObject();
+			parameter.access_token = accessToken;
+			parameter.fields = "name";
 
-		void Windows002Button_Click(object sender, RoutedEventArgs e)
-		{
-			this.Content = new Window002();
-		}
+			dynamic result = await facebookClient.GetTaskAsync("me", parameter);
+			LoginButton.Content = result.name;
 
-		void VideoPlayerButton_Click(object sender, RoutedEventArgs e)
-		{
-			this.Content = new VideoPlayer();
 		}
-
 
 		/// <summary>
 		/// Invoked when this page is about to be displayed in a Frame.

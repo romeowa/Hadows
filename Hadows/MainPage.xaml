@@ -14,5 +14,6 @@
         <Button x:Name="VideoPlayerButton" Content="Video Player"/>
         <Button x:Name="AudioPlayerButton" Content="Audio Player"/>
         <Button x:Name="WebButton" Content="Web"/>
+        <Button x:Name="FacebookButton" Content="Facebook"/>
     </StackPanel>
 </Page>

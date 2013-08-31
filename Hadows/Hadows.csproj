@@ -106,6 +106,9 @@
     <Compile Include="Component\AudioPlayer.xaml.cs">
       <DependentUpon>AudioPlayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Component\FacebookView.xaml.cs">
+      <DependentUpon>FacebookView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Component\IComponent.cs" />
     <Compile Include="Component\NotePad.xaml.cs">
       <DependentUpon>NotePad.xaml</DependentUpon>
@@ -157,6 +160,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Component\FacebookView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Component\NotePad.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -183,6 +190,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>packages\Facebook.6.4.2\lib\win8\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Client">
+      <HintPath>packages\Facebook.Client.0.8.0-alpha\lib\win8\Facebook.Client.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight.Extras.Win8">
       <HintPath>packages\MvvmLightLibs.4.1.27.0\lib\netcore45\GalaSoft.MvvmLight.Extras.Win8.dll</HintPath>
     </Reference>
