@@ -9,5 +9,6 @@
 
     <StackPanel Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Button x:Name="LoginButton" Content="Login"/>
+        <WebView x:Name="LoginWebView" Height="600"/>
     </StackPanel>
 </Page>

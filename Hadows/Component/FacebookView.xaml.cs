@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Dynamic;
-using System.IO;
-using System.Linq;
 using Facebook;
 using Facebook.Client;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -37,22 +28,36 @@ namespace Hadows.Component
 
 		async void LoginButton_Click(object sender, RoutedEventArgs e)
 		{
-			string accessToken = string.Empty;
-			string facebookId = string.Empty;
-			FacebookSessionClient client = new FacebookSessionClient("158376391035007");
-			FacebookSession session = await client.LoginAsync("user_about_me,read_stream");
-			accessToken = session.AccessToken;
-			facebookId = session.FacebookId;
+			//string accessToken = string.Empty;
+			//string facebookId = string.Empty;
+			//FacebookSessionClient client = new FacebookSessionClient("158376391035007");
+			//FacebookSession session = await client.LoginAsync("user_about_me,read_stream, read_friendlists");
+			//accessToken = session.AccessToken;
+			//facebookId = session.FacebookId;
 
-			FacebookClient facebookClient = new FacebookClient(accessToken);
+			//FacebookClient facebookClient = new FacebookClient(accessToken);
 
-			dynamic parameter = new ExpandoObject();
-			parameter.access_token = accessToken;
-			parameter.fields = "name";
+			//dynamic parameter = new ExpandoObject();
+			//parameter.access_token = accessToken;
 
-			dynamic result = await facebookClient.GetTaskAsync("me", parameter);
-			LoginButton.Content = result.name;
+			//dynamic result = await facebookClient.GetTaskAsync("FriendList", parameter);
+			//LoginButton.Content = result.list_type;
 
+			LoginWebView.LoadCompleted += LoginWebView_LoadCompleted;
+			LoginWebView.Source = new Uri(string.Format("https://www.facebook.com/dialog/oauth?client_id={0}&redirect_uri={1}&scope={2}&response_type={3}", "158376391035007", "https://www.facebook.com/connect/login_success.html", "user_about_me,read_stream, read_friendlists", "token"));
+
+
+
+		}
+
+		void LoginWebView_LoadCompleted(object sender, NavigationEventArgs e)
+		{
+			if (LoginWebView.Source.AbsoluteUri.StartsWith("https://www.facebook.com/connect/login_success.html") == true)
+			{
+				string[] spliter = new string[] { "code=" };
+				string code = LoginWebView.Source.AbsoluteUri.Split(spliter, StringSplitOptions.RemoveEmptyEntries)[0];
+
+			}
 		}
 
 		/// <summary>
